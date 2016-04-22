@@ -12,7 +12,7 @@ var expect = chai.expect;
 describe('Akismet-api', function() {
 
   describe('#client()', function() {
- 
+
     it('should return an instance of Akismet', function() {
       var client = Akismet.client({
         blog   : 'http://example.com',
@@ -20,7 +20,7 @@ describe('Akismet-api', function() {
       });
       expect(client instanceof Akismet.Client).to.be.true;
     });
- 
+
     it('should assign the passed-in variables', function() {
       var client = Akismet.client({
         blog      : 'http://example.com',
@@ -59,12 +59,12 @@ describe('Akismet-api', function() {
       var client = Akismet.client();
       expect(client.verifyKey()).to.be.an.instanceof(Promise);
     });
-  
+
     describe('when the request returns \'valid\'', function() {
 
       var client;
       var scope;
-      
+
       beforeEach(function() {
         client = Akismet.client({
           blog : 'http://example.com',
@@ -75,7 +75,7 @@ describe('Akismet-api', function() {
         .matchHeader('Content-Type', 'application/x-www-form-urlencoded')
         .post('/1.1/verify-key')
         .reply(200, 'valid', {
-          'Content-Type' : 'text/plain' 
+          'Content-Type' : 'text/plain'
         });
       });
 
@@ -101,7 +101,7 @@ describe('Akismet-api', function() {
 
       var client;
       var scope;
-      
+
       beforeEach(function() {
         client = Akismet.client({
           blog : 'http://example.com',
@@ -138,7 +138,7 @@ describe('Akismet-api', function() {
 
       var client;
       var scope;
-      
+
       beforeEach(function() {
         client = Akismet.client({
           blog : 'http://example.com',
@@ -174,7 +174,7 @@ describe('Akismet-api', function() {
     describe('when the request fails', function() {
 
       var client;
-      
+
       beforeEach(function() {
         client = Akismet.client({
           blog : 'http://example.com',
@@ -208,12 +208,12 @@ describe('Akismet-api', function() {
       var client = Akismet.client();
       expect(client.verifyKey()).to.be.an.instanceof(Promise);
     });
-    
+
     describe('when the request returns \'true\'', function() {
-    
+
       var client;
       var scope;
-      
+
       beforeEach(function() {
         client = Akismet.client({
           blog : 'http://example.com',
@@ -236,7 +236,7 @@ describe('Akismet-api', function() {
           done();
         });
       });
-    
+
       it('should not return an error', function(done) {
         client.checkSpam({
           user_ip : '123.123.123.123'
@@ -246,14 +246,14 @@ describe('Akismet-api', function() {
           done();
         });
       });
-    
+
     });
-    
+
     describe('when the request returns \'false\'', function() {
-    
+
       var client;
       var scope;
-      
+
       beforeEach(function() {
         client = Akismet.client({
           blog : 'http://example.com',
@@ -276,7 +276,7 @@ describe('Akismet-api', function() {
           done();
         });
       });
-    
+
       it('should not return an error', function(done) {
         client.checkSpam({
           user_ip : '123.123.123.123'
@@ -286,16 +286,16 @@ describe('Akismet-api', function() {
           done();
         });
       });
-    
+
     });
 
     describe('when the request returns something else', function() {
 
       describe('when the x-akismet-debug-help header is present', function() {
-    
+
         var client;
         var scope;
-        
+
         beforeEach(function() {
           client = Akismet.client({
             blog : 'http://example.com',
@@ -319,7 +319,7 @@ describe('Akismet-api', function() {
             done();
           });
         });
-      
+
         it('should return the akismet debug error', function(done) {
           client.checkSpam({
             user_ip : '123.123.123.123'
@@ -333,10 +333,10 @@ describe('Akismet-api', function() {
       });
 
       describe('when the x-akismet-debug-help header is not present', function() {
-    
+
         var client;
         var scope;
-        
+
         beforeEach(function() {
           client = Akismet.client({
             blog : 'http://example.com',
@@ -359,7 +359,7 @@ describe('Akismet-api', function() {
             done();
           });
         });
-      
+
         it('should return the response', function(done) {
           client.checkSpam({
             user_ip : '123.123.123.123'
@@ -375,9 +375,9 @@ describe('Akismet-api', function() {
     });
 
     describe('when the request fails', function() {
-    
+
       var client;
-      
+
       beforeEach(function() {
         client = Akismet.client({
           blog : 'http://example.com',
@@ -394,7 +394,7 @@ describe('Akismet-api', function() {
           done();
         });
       });
-    
+
       it('should return the error', function(done) {
         client.checkSpam({
           user_ip : '123.123.123.123'
@@ -414,12 +414,12 @@ describe('Akismet-api', function() {
       var client = Akismet.client();
       expect(client.verifyKey()).to.be.an.instanceof(Promise);
     });
- 
+
     describe('when the request returns a 2XX status code ', function() {
-    
+
       var client;
       var scope;
-      
+
       beforeEach(function() {
         client = Akismet.client({
           blog : 'http://example.com',
@@ -432,7 +432,7 @@ describe('Akismet-api', function() {
           'Content-Type' : 'text/plain'
         });
       });
- 
+
       it('should return null', function(done) {
         client.submitSpam({
           user_ip : '123.123.123.123'
@@ -442,14 +442,14 @@ describe('Akismet-api', function() {
           done();
         });
       });
- 
+
     });
- 
+
     describe('when the request returns a non 2XX status code', function() {
-    
+
       var client;
       var scope;
-      
+
       beforeEach(function() {
         client = Akismet.client({
           blog : 'http://example.com',
@@ -467,18 +467,18 @@ describe('Akismet-api', function() {
         client.submitSpam({
           user_ip : '123.123.123.123'
         }, function(err) {
-          expect(err.message).to.equal('Oh, whoops.');
+          expect(err.message).to.equal('Internal Server Error');
           scope.done();
           done();
         });
       });
- 
+
     });
 
     describe('when the request fails', function() {
-    
+
       var client;
-      
+
       beforeEach(function() {
         client = Akismet.client({
           blog : 'http://example.com',
@@ -506,12 +506,12 @@ describe('Akismet-api', function() {
       var client = Akismet.client();
       expect(client.verifyKey()).to.be.an.instanceof(Promise);
     });
-    
+
     describe('when the request returns a 2XX status code ', function() {
-    
+
       var client;
       var scope;
-      
+
       beforeEach(function() {
         client = Akismet.client({
           blog : 'http://example.com',
@@ -524,7 +524,7 @@ describe('Akismet-api', function() {
           'Content-Type' : 'text/plain'
         });
       });
- 
+
       it('should return null', function(done) {
         client.submitHam({
           user_ip : '123.123.123.123'
@@ -534,14 +534,14 @@ describe('Akismet-api', function() {
           done();
         });
       });
- 
+
     });
- 
+
     describe('when the request returns a non 2XX status code', function() {
-    
+
       var client;
       var scope;
-      
+
       beforeEach(function() {
         client = Akismet.client({
           blog : 'http://example.com',
@@ -559,18 +559,18 @@ describe('Akismet-api', function() {
         client.submitHam({
           user_ip : '123.123.123.123'
         }, function(err) {
-          expect(err.message).to.equal('Oh, whoops.');
+          expect(err.message).to.equal('Internal Server Error');
           scope.done();
           done();
         });
       });
- 
+
     });
 
     describe('when the request fails', function() {
-    
+
       var client;
-      
+
       beforeEach(function() {
         client = Akismet.client({
           blog : 'http://example.com',
